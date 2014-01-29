@@ -31,7 +31,7 @@ def clean_up():
         out("Config file didn't exist...")
 
 out("Note: This is an installer, please run this as root. If you are not, please exit now and rerun (5 seconds)")
-time.sleep(5)
+#time.sleep(5)
 out("Searching for installation...")  # Tell the user we are searching for the install
 if not os.path.exists("/usr/local/bin/weather.py"):  # Check if it is installed
     out("None found", "good")  # Nothing installed
@@ -66,9 +66,11 @@ out("Great, now do you want Fahrenheit, or Celsius? (f/c)\n")
 f_c = raw_input()
 out("Great, now, if you come across errors in the future, try resetting your config file (weather.py r)", "good")
 out("Writing config file (can be found in .config/weather/config)", "good")
-if not os.path.exists(".config/weather"):
-    os.makedirs(".config/weather")
-config_file = open(".config/weather/config", "w")
+try:
+    os.makedirs("/home/.config/weather")
+except OSError:
+    pass
+config_file = open("/home/.config/weather/config", "w")
 config_file.write(WOEID + "\n")
 config_file.write(f_c + "\n")
 config_file.close()

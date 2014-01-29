@@ -3,12 +3,14 @@ import getpass
 import sys
 import urllib2
 import feedparser
+import os
 
 
 def out(to_out):
     sys.stderr.write(to_out + "\n")
 user_name = getpass.getuser()
-config_file = open(".config/weather/config", "r")
+a = os.path.join("/" + "home", ".config", "weather", "config")
+config_file = open(a, "r")
 config_file_info = config_file.readlines()
 config_file.close()
 WOEID = config_file_info[0].strip()
