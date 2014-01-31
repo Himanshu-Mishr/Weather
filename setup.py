@@ -37,7 +37,7 @@ if not os.path.exists("/usr/local/bin/weather.py"):  # Check if it is installed
     out("None found", "good")  # Nothing installed
 else:
     out("Installation found, would you like to remove?", "bad")  # Something is installed, prompt for removal
-    answer = raw_input("Y/n\n")
+    answer = raw_input("(Y/n):\n")
     if not answer.isalpha():
         out("Please, only use characters, exiting", "bad")
         exit(1)
@@ -59,8 +59,6 @@ out("Beginning install", "good")
 shutil.copy2('weather.py', '/usr/local/bin')
 os.chmod("/usr/local/bin/weather.py", 0755)
 out("Ok, so firstly, I need to know, what is your WOEID? Don't worry, it's easy to find, google it\n.")
-out("When you are ready, press enter\n.")
-raw_input()
 WOEID = raw_input("Ok, please enter your WOEID:\n")
 out("Great, now do you want Fahrenheit, or Celsius? (f/c)\n")
 f_c = raw_input()

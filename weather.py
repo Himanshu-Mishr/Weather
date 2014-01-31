@@ -4,10 +4,40 @@ import sys
 import urllib2
 import feedparser
 import os
+import argparse
 
 
 def out(to_out):
     sys.stderr.write(to_out + "\n")
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-o", "--option", help="Resets configuration file")
+args = parser.parse_args()
+if args.option:
+    out("Are you sure you want to remove your config? (Y/n)")
+    response = raw_input()
+    if response.lower() in ['y', 'n']:
+        if response.lower() == 'y':
+            out("Removing config....")
+            new_woed = raw_input("What is your WOIED?\n")
+            f_c = raw_input("f/c\n")
+            a = os.path.join("/" + "home", ".config", "weather", "config")
+            out("Removing old config...")
+            try:
+                os.remove(a)
+            except OSError:
+                out("Error - Please run again as root")
+                exit(1)
+            out("Writing new config...")
+            config = open(a, "w")
+            config.write(new_woed)
+            config.write(f_c)
+            out("Completed!")
+            exit()
+        else:
+            out("Aborting...")
+            exit()
+
 user_name = getpass.getuser()
 a = os.path.join("/" + "home", ".config", "weather", "config")
 config_file = open(a, "r")
@@ -40,5 +70,4 @@ other = other.split("-")[1]
 print """
 Hello {0}!\n
 In {1} right now it is\n
-{2}
-""".format(user_name, other, current_cond)
+{2}""".format(user_name, other, current_cond)
