@@ -6,6 +6,8 @@ import feedparser
 import os
 import argparse
 
+user_name = getpass.getuser()
+
 
 def out(to_out):
     sys.stderr.write(to_out + "\n")
@@ -21,25 +23,24 @@ if args.option:
             out("Removing config....")
             new_woed = raw_input("What is your WOIED?\n")
             f_c = raw_input("f/c\n")
-            a = os.path.join("/" + "home", ".config", "weather", "config")
+            a = os.path.join("/" + "home", user_name, "/.config", "weather", "config")
             out("Removing old config...")
             try:
                 os.remove(a)
             except OSError:
-                out("Error - Please run again as root")
+                out("Error")
                 exit(1)
             out("Writing new config...")
             config = open(a, "w")
             config.write(new_woed)
             config.write(f_c)
+            config.write(user_name)
             out("Completed!")
             exit()
         else:
             out("Aborting...")
             exit()
-
-user_name = getpass.getuser()
-a = os.path.join("/" + "home", ".config", "weather", "config")
+a = "/home/" + user_name + "/.config/weather/config"
 config_file = open(a, "r")
 config_file_info = config_file.readlines()
 config_file.close()

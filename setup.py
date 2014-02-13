@@ -2,6 +2,7 @@ import sys
 import os
 import time
 import shutil
+import getpass
 
 
 def out(to_out, stat=None):
@@ -30,6 +31,7 @@ def clean_up():
     except IOError:
         out("Config file didn't exist...")
 
+user_name = getpass.getuser()
 out("Note: This is an installer, please run this as root. If you are not, please exit now and rerun (5 seconds)")
 #time.sleep(5)
 out("Searching for installation...")  # Tell the user we are searching for the install
@@ -60,17 +62,16 @@ shutil.copy2('weather.py', '/usr/local/bin')
 os.chmod("/usr/local/bin/weather.py", 0755)
 out("Ok, so firstly, I need to know, what is your WOEID? Don't worry, it's easy to find, google it\n.")
 WOEID = raw_input("Ok, please enter your WOEID:\n")
+name = raw_input("Ok, What is your username? (Important, if unsure open a terminal and type whoami?)\n")
+os.mkdir("/home/" + name + "/.config/weather")
 out("Great, now do you want Fahrenheit, or Celsius? (f/c)\n")
 f_c = raw_input()
 out("Great, now, if you come across errors in the future, try resetting your config file (weather.py r)", "good")
 out("Writing config file (can be found in .config/weather/config)", "good")
-try:
-    os.makedirs("/home/.config/weather")
-except OSError:
-    pass
-config_file = open("/home/.config/weather/config", "w")
+config_file = open("/home/" + name + "/.config/weather/config", "w")
 config_file.write(WOEID + "\n")
 config_file.write(f_c + "\n")
+config_file.write(name + "\n")
 config_file.close()
 out("Finished writing config", "good")
 out("This weather is provided by Yahoo! Weather")
