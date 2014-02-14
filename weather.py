@@ -23,15 +23,15 @@ if args.option:
             out("Removing config....")
             new_woed = raw_input("What is your WOIED?\n")
             f_c = raw_input("f/c\n")
-            a = os.path.join("/" + "home", user_name, "/.config", "weather", "config")
+            dir_ = "/home/" + user_name + "/.config/weather/config"
             out("Removing old config...")
             try:
-                os.remove(a)
+                os.remove(dir_)
             except OSError:
                 out("Error")
                 exit(1)
             out("Writing new config...")
-            config = open(a, "w")
+            config = open(dir_, "w")
             config.write(new_woed)
             config.write(f_c)
             config.write(user_name)
@@ -71,4 +71,4 @@ other = other.split("-")[1]
 print """
 Hello {0}!\n
 In {1} right now it is\n
-{2}""".format(user_name, other, current_cond)
+{2}""".format(user_name.title(), other, current_cond)
