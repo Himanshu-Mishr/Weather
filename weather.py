@@ -32,9 +32,9 @@ if args.option:
                 exit(1)
             out("Writing new config...")
             config = open(dir_, "w")
-            config.write(new_woed)
-            config.write(f_c)
-            config.write(user_name)
+            config.write(new_woed + "\n")
+            config.write(f_c + "\n")
+            config.write(user_name + "\n")
             out("Completed!")
             exit()
         else:
