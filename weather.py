@@ -10,7 +10,7 @@ user_name = getpass.getuser()
 
 
 def out(to_out):
-    sys.stderr.write(to_out + "\n")
+    sys.stdout.write(to_out + "\n")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", "--option", help="Resets configuration file")
