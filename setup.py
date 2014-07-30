@@ -72,7 +72,6 @@ if os.path.exists(required_config_dir):
     shutil.rmtree(required_config_dir)
 os.mkdir(required_config_dir)
 
-
 out("Great, now do you want Fahrenheit, or Celsius? (f/c)\n")
 f_c = raw_input()
 out("Great, now, if you come across errors in the future, try resetting your config file (weather.py r)", "good")
