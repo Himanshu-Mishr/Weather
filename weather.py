@@ -70,5 +70,26 @@ current_cond = " ".join(current_cond).replace("<br", "")
 other = other.split("-")[1]
 print """
 Hello {0}!\n
-In {1} right now it is\n
-{2}""".format(user_name.title(), other, current_cond)
+In {1} """.format(user_name.title(), other)
+
+
+# my fun with it....
+b = feed['entries'][0]['summary_detail']
+b = b['value']
+while '<' in b or '>' in b:
+    b = b.replace(b[b.find('<'):b.find('>')+1],"")
+c = b.split('\n')
+print c[1], c[2]
+print "\n"
+print c[3]
+print c[4]
+print c[5]
+print c[6]
+print c[7]
+print c[8]
+
+
+
+
+
+
