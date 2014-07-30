@@ -55,11 +55,23 @@ if os.getuid() == 0:
     out("Please do NOT run this installer as root", "bad")
     sys.exit(1)
 out("Beginning install", "good")
+
+# checking and making dir if 'bin' folder not present.
+required_dir = '/home/'+user_name+'/bin/'
+if not os.path.exists(required_dir):
+    os.makedirs(required_dir)
+
 shutil.copy2('weather.py', '/home/' + user_name + "/bin/")
 os.chmod("/home/" + user_name + "/bin/weather.py", 0755)
 out("Ok, so firstly, I need to know, what is your WOEID? Don't worry, it's easy to find, google it\n.")
 WOEID = raw_input("Ok, please enter your WOEID:\n")
-os.mkdir("/home/" + user_name + "/.config/weather")
+
+# removing previous config dir if present.
+required_config_dir = "/home/" + user_name + "/.config/weather"
+if os.path.exists(required_config_dir):
+    shutil.rmtree(required_config_dir)
+os.mkdir(required_config_dir)
+
 out("Great, now do you want Fahrenheit, or Celsius? (f/c)\n")
 f_c = raw_input()
 out("Great, now, if you come across errors in the future, try resetting your config file (weather.py r)", "good")
